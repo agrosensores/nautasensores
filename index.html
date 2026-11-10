@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nautasensores · Guias técnicos Actisense em português</title>
+<meta name="description" content="Guias e artigos técnicos da Actisense sobre redes NMEA 0183 e NMEA 2000, traduzidos para o português.">
+<style>
+  :root { --ink:#1d2733; --muted:#5b6672; --line:#e3e7eb; --bg:#f6f8fa; --accent:#1f6f9a; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); background:var(--bg); line-height:1.6; }
+  header { background:#fff; border-bottom:1px solid var(--line); padding:44px 20px 36px; }
+  .wrap { max-width:1000px; margin:0 auto; }
+  h1 { margin:0 0 8px; font-size:clamp(26px,4vw,36px); line-height:1.2; }
+  header p { margin:0; color:var(--muted); font-size:17px; }
+  main { padding:32px 20px 64px; }
+  h2 { font-size:22px; margin:34px 0 14px; padding-bottom:8px; border-bottom:2px solid var(--accent); }
+  h2:first-child { margin-top:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:20px; }
+  a.card { display:flex; flex-direction:column; background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden; text-decoration:none; color:inherit; transition:box-shadow .15s, transform .15s; }
+  a.card:hover { box-shadow:0 6px 20px rgba(0,0,0,.08); transform:translateY(-2px); }
+  .thumb { aspect-ratio:16/9; background:#dde3e8 center/cover no-repeat; }
+  .body { padding:16px 18px 18px; display:flex; flex-direction:column; gap:8px; flex:1; }
+  .title { font-weight:700; font-size:18px; line-height:1.3; }
+  .summary { color:var(--muted); font-size:15px; flex:1; }
+  .date { color:var(--muted); font-size:13px; }
+  .empty { color:var(--muted); }
+  footer { color:var(--muted); font-size:14px; text-align:center; padding:0 20px 40px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Nautasensores</h1>
+    <p>Guias técnicos da Actisense sobre redes NMEA 0183 e NMEA 2000, traduzidos para o português.</p>
+  </div>
+</header>
+<main>
+  <div class="wrap" id="lista"><p class="empty">Carregando…</p></div>
+</main>
+<footer>Nautasensores</footer>
+
+<script src="documentos.js"></script>
+<script>
+  (function () {
+    var lista = document.getElementById('lista');
+    var docs = (window.DOCUMENTOS || []).slice();
+    if (!docs.length) { lista.innerHTML = '<p class="empty">Nenhum documento publicado ainda.</p>'; return; }
+    var meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+    function fmt(d) { var p = (d || '').split('-'); return p.length === 3 ? (+p[2]) + ' de ' + meses[+p[1] - 1] + ' de ' + p[0] : ''; }
+    function esc(s) { return String(s || '').replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+    var grupos = {};
+    docs.forEach(function (d) { (grupos[d.empresa] = grupos[d.empresa] || []).push(d); });
+    lista.innerHTML = Object.keys(grupos).sort(function (a, b) { return a.localeCompare(b, 'pt'); }).map(function (emp) {
+      var itens = grupos[emp].sort(function (a, b) { return (b.data || '').localeCompare(a.data || ''); });
+      return '<h2>' + esc(emp) + '</h2><div class="grid">' + itens.map(function (d) {
+        return '<a class="card" href="' + esc(d.caminho) + '">' +
+          '<div class="thumb"' + (d.imagem ? ' style="background-image:url(\'' + esc(d.imagem) + '\')"' : '') + '></div>' +
+          '<div class="body"><div class="title">' + esc(d.titulo) + '</div>' +
+          '<div class="summary">' + esc(d.resumo) + '</div>' +
+          '<div class="date">' + fmt(d.data) + '</div></div></a>';
+      }).join('') + '</div>';
+    }).join('');
+  })();
+</script>
+</body>
+</html>
