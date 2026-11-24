@@ -5,6 +5,15 @@
 window.DOCUMENTOS = [
   {
     empresa: "Actisense",
+    titulo: "Novidades Actisense na METSTRADE 2026",
+    resumo: "Os lançamentos apresentados em Amsterdã, com SBN-3, ActisenseCloud, atualização do WGX-1, PRO-NDC-1E2K e bobina de cabo de 100 m.",
+    data: "2026-11-24",
+    caminho: "novidades-actisense-metstrade-2026/",
+    imagem: "novidades-actisense-metstrade-2026/miniatura.jpg",
+    original: "https://actisense.com/expo/"
+  },
+  {
+    empresa: "Actisense",
     titulo: "Retrofit de NMEA 2000 em barcos com equipamentos NMEA 0183",
     resumo: "Como levar o NMEA 2000 a um barco com eletrônicos NMEA 0183 sem refazer toda a fiação, com NGX-1, PRO-NDC-1E2K, W2K-2 e EMU-1.",
     data: "2026-11-11",
